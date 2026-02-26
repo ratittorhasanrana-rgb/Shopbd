@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>h4ck3r · portfolio</title>
+  <style>
+    /* matrix theme – compact & clean, mobile first */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0c0c0c;
+      font-family: 'Courier New', Courier, monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      /* matrix background effect: subtle animated scan lines + fixed code rain */
+      background-image: 
+        linear-gradient(rgba(0, 20, 0, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+        repeating-linear-gradient(0deg, rgba(0, 255, 0, 0.03) 0px, rgba(0, 0, 0, 0.8) 1px, transparent 2px);
+      background-size: 100% 4px, 4px 100%, 100% 12px;
+      background-position: 0 0;
+      animation: matrixScan 14s linear infinite;
+    }
+
+    @keyframes matrixScan {
+      0% { background-position: 0 0, 0 0, 0 0; }
+      100% { background-position: 0 40px, 40px 0, 0 40px; }
+    }
+
+    /* main card – small, clean, glassy dark */
+    .terminal {
+      max-width: 700px;
+      width: 100%;
+      background: rgba(10, 20, 10, 0.92);
+      backdrop-filter: blur(3px);
+      border: 2px solid #1f9f1f;
+      border-radius: 24px;
+      padding: 1.8rem 1.6rem;
+      box-shadow: 0 20px 40px rgba(0, 255, 0, 0.15), 0 0 0 1px #2f9f2f inset;
+      color: #b0ffb0;
+    }
+
+    /* glitchy header */
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 2px solid #2b8f2b;
+      padding-bottom: 0.7rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .name {
+      font-size: 1.7rem;
+      font-weight: bold;
+      background: #0f0f0f;
+      padding: 0 0.5rem 0 0.2rem;
+      text-shadow: 0 0 5px #00cc00;
+      color: #bfffbf;
+    }
+
+    .tag {
+      border: 1px solid #2a9d2a;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      background: #051005;
+    }
+
+    /* compact flex for avatar + intro */
+    .profile {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.8rem;
+      background: #0f1a0f;
+      padding: 1rem 1.2rem;
+      border-radius: 30px;
+      border: 1px solid #2ba02b;
+      align-items: center;
+    }
+
+    /* text avatar – hacker style */
+    .avatar {
+      width: 75px;
+      height: 75px;
+      background: #031003;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.6rem;
+      font-weight: bold;
+      color: #32cd32;
+      border: 3px solid #1f9f3f;
+      box-shadow: 0 0 15px #1f9f1f;
+      font-family: 'Courier New', monospace;
+    }
+
+    .bio {
+      flex: 1;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      background: #0b150b;
+      padding: 0.7rem 1.2rem;
+      border-radius: 30px;
+      border: 1px solid #248f24;
+    }
+
+    .highlight {
+      color: #9fff9f;
+      font-weight: bold;
+      background: #1a3a1a;
+      padding: 0 0.3rem;
+    }
+
+    /* skills — small tags */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.6rem;
+      margin: 1.2rem 0 1.8rem 0;
+    }
+
+    .skill {
+      background: #0a1f0a;
+      border: 1px solid #2e8b57;
+      color: #adffad;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* project cards – very compact */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 1.5rem;
+    }
+
+    .card {
+      background: #0d180d;
+      border: 1px solid #249624;
+      border-radius: 20px;
+      padding: 1rem;
+      transition: 0.1s ease;
+      box-shadow: 0 4px 6px #00000055;
+    }
+
+    .card:hover {
+      background: #132013;
+      border-color: #4fbf4f;
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      color: #b0ffb0;
+    }
+
+    .card p {
+      font-size: 0.8rem;
+      color: #9fd99f;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    /* experience – minimal lines */
+    .xp-item {
+      background: #0f180f;
+      border-left: 6px solid #22aa22;
+      padding: 0.9rem 1rem;
+      border-radius: 14px;
+      margin: 1rem 0;
+    }
+
+    .xp-title {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .xp-date {
+      color: #8bc34a;
+      font-size: 0.75rem;
+      background: #1e2e1e;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+    }
+
+    /* contact row – small */
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0 0.5rem;
+    }
+
+    .contact a {
+      background: #142014;
+      border: 1px solid #208b20;
+      color: #adffad;
+      padding: 0.4rem 1.2rem;
+      border-radius: 60px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: 0.1s;
+    }
+
+    .contact a:hover {
+      background: #1f3a1f;
+      border-color: #44d644;
+      color: #ffffff;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 1.8rem;
+      font-size: 0.7rem;
+      color: #2f9f2f;
+      border-top: 1px dashed #1d731d;
+      padding-top: 0.8rem;
+    }
+
+    /* small extra matrix cursor effect */
+    .cursor {
+      background-color: #00cc00;
+      width: 8px;
+      height: 1.2rem;
+      display: inline-block;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* fine tuning for tiny screens */
+    @media (max-width: 420px) {
+      .terminal { padding: 1rem; }
+      .name { font-size: 1.4rem; }
+      .avatar { width: 65px; height: 65px; font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+
+    <!-- header with matrix-style prompt -->
+    <div class="header">
+      <span class="name">~ $ alex_r <span class="cursor"></span></span>
+      <span class="tag">root@matrix</span>
+    </div>
+
+    <!-- profile - pure html avatar (AR) -->
+    <div class="profile">
+      <div class="avatar">[0xAR]</div>
+      <div class="bio">
+        <span class="highlight">alex rivera</span> · full-stack & low-level dabbler. 
+        <span style="color:#b3ffb3;">>_ builds tools that feel like green rain.</span>
+      </div>
+    </div>
+
+    <!-- skill chips (tiny) -->
+    <div class="skills">
+      <span class="skill">c</span>
+      <span class="skill">python</span>
+      <span class="skill">js/ts</span>
+      <span class="skill">react</span>
+      <span class="skill">node</span>
+      <span class="skill">rust</span>
+      <span class="skill">sql</span>
+      <span class="skill">bash</span>
+    </div>
+
+    <!-- compact project grid (matrix themed) -->
+    <div class="projects">
+      <div class="card">
+        <div class="card-icon">⌨️</div>
+        <h3>k3y logger</h3>
+        <p>keystroke dynamics visualizer · p5.js + webauthn</p>
+        <span class="skill">demo</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <h3>netspy</h3>
+        <p>lightweight port scanner (electron + worker)</p>
+        <span class="skill">open source</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧬</div>
+        <h3>hex </h3>
+        <p>real‑time hex viewer + ansi matrix effect</p>
+        <span class="skill">tui</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">⎈</div>
+        <h3>k8s dash</h3>
+        <p>terminal dashboard for kubernetes · go</p>
+        <span class="skill">devops</span>
+      </div>
+    </div>
+
+    <!-- work xp – one liner style -->
+    <div class="xp-item">
+      <div class="xp-title">
+        <span>>_ senior dev @ redlabs</span>
+        <span class="xp-date">2022-25</span>
+      </div>
+      <div style="font-size:0.85rem;">core infra & matrix‑inspired monitoring tools · go, vue, wasm</div>
+    </div>
+
+    <div class="xp-item">
+      <div class="xp-title">
+        <span>>_ security researcher @ null_byte</span>
+        <span class="xp-date">2019-22</span>
+      </div>
+      <div style="font-size:0.85rem;">built internal exploit‑db ui + cve tracker (python/flask)</div>
+    </div>
+
+    <!-- contact in matrix style -->
+    <div class="contact">
+      <a href="#">[ email ]</a>
+      <a href="#">[ github ]</a>
+      <a href="#">[ irc ]</a>
+    </div>
+
+    <!-- footer with ascii -->
+    <footer>
+      <span>└─$ ./connect --user alex --matrix ON</span><br>
+      <span style="color:#2f9f2f;">>_ 0x7C 0x30 0x21 0x3E  ·  small & clean</span>
+    </footer>
+  </div>
+
+  <!-- tiny js to keep year moving (optional) but fits the small vibe -->
+  <script>
+    (function() {
+      // just a small matrix console message
+      console.log("\n🌱  matrix portfolio / index.html only\n");
+      // optional dynamic year blink (keep minimal)
+      const footer = document.querySelector('footer span:last-child');
+      if (footer) {
+        const year = new Date().getFullYear();
+        // add a subtle year without bloating
+        if (!footer.innerHTML.includes(year)) {
+          footer.innerHTML = footer.innerHTML.replace('2026', year);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
